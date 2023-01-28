@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Practice</title>
+    <link href="styles.css" rel="stylesheet">
+
+    <style>
+        /* General styles */
+
+        .container {
+            display: grid;
+            grid-template-areas:
+                'content';
+            grid-gap: 30px;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr auto;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .item {
+            padding: 0px;
+        }
+
+        .header {
+            background-color: white;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            height: 100px;
+            border-bottom: 1px solid black;
+            z-index: 1;
+        }
+
+        .sidebar {
+            grid-area: sidebar;
+            align-self: start;
+            display: none;
+            margin-left: 24px;
+            height: 100vh;
+            overflow-y: scroll;
+            position: sticky;
+            top: 50px;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background-color: #f9f9fd;
+            border-radius: 5px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background: linear-gradient(180deg, #d7d7d7, #dedede);
+        }
+
+        html::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        html::-webkit-scrollbar-track {
+            background-color: #f9f9fd;
+            border-radius: 5px;
+        }
+
+        html::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background: linear-gradient(180deg, #d7d7d7, #dedede);
+        }
+
+        .footer {
+            padding: 32px 16px;
+            background-color: #e3e3e3;
+        }
+
+        .nav {
+            grid-area: nav;
+            display: none;
+            align-self: start;
+            justify-self: center;
+            padding: 48px 0px;
+        }
+
+        .content {
+            grid-area: content;
+            max-width: 800px;
+            padding: 48px 0px;
+        }
+
+        /* font-styles */
+
+        h3 {
+            font-size: 25px;
+        }
+
+        h2 {
+            font-size: 27px;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        .top-navigation-wrap h1.logo {
+            font-size: 23px;
+        }
+
+        .top-navigation-items-links {
+            font-size: 18px;
+        }
+
+        /* header */
+
+        .header-top-container {
+            display: flex;
+            align-items: center;
+            height: 67px;
+            border-bottom: 1px solid black;
+            padding: 0px 16px;
+            justify-content: space-between;
+        }
+
+        .top-navigation-items-links {
+            display: flex;
+            width: 50%;
+            justify-content: space-evenly;
+        }
+
+        .top-navigation-items-buttons {
+            display: none;
+            width: 35%;
+            justify-content: space-evenly;
+        }
+
+        .header-bottom-container {
+            display: flex;
+            align-items: center;
+            height: 32px;
+            padding: 0px 16px;
+        }
+
+        .top-navigation-wrap {
+            width: 180px;
+        }
+
+        /* sidebar */
+
+        .sidebar .aside {
+            margin: 78px 0px;
+        }
+
+        .sidebar ul {
+            margin: 28px 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .sidebar ul li.aside-article {
+            margin-top: 0px;
+            margin-bottom: 80px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .sidebar ul li.aside-article ul li {
+            margin: 10px 0 10px 0;
+            font-weight: normal;
+        }
+
+        /* nav */
+
+        .nav ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .nav ul li {
+            padding: 8px 16px 8px 16px;
+            border-left: 1px solid black;
+        }
+
+        .nav div.nav-header {
+            margin-bottom: 10px;
+        }
+
+        /*link-styles-sidebar*/
+
+        a {
+            outline: none;
+            text-decoration: none;
+        }
+
+        a:link,
+        a:visited {
+            color: black;
+        }
+
+        a:focus,
+        a:hover {
+            color: rgb(0, 158, 190);
+        }
+
+        a:active {
+            border-bottom: 1px solid rgb(0, 158, 190);
+        }
+
+
+
+
+        /*link-styles-header*/
+
+        .top-navigation-items-links .navigation-item a,
+        .top-navigation-items-buttons a {
+            padding: 12px 8px;
+        }
+
+        .top-navigation-items-links .navigation-item a:link,
+        .top-navigation-items-links .navigation-item a:visited {
+            color: black;
+        }
+
+        .top-navigation-items-links .navigation-item a:hover {
+            background-color: pink;
+            border-radius: 5px;
+            border-bottom: none;
+            color: crimson;
+        }
+
+        .top-navigation-items-buttons .subscribe-button2 a:link,
+        .top-navigation-items-buttons .subscribe-button2 a:visited {
+            color: white;
+            background-color: black;
+            border-radius: 5px;
+        }
+
+        .top-navigation-items-buttons .subscribe-button2 a:hover {
+            background-color: grey;
+            border-bottom: none;
+        }
+
+        /*Content-styles*/
+
+        .regular-box {
+            padding: 30px 20px;
+            border: 1px solid rgb(192, 192, 192);
+            border-radius: 10px;
+            background-color: #f6f6f6c7;
+        }
+
+        .regular-box ul li {
+            line-height: 1.5;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        .container section ul {
+            font-size: 20px;
+        }
+
+        .container section dl {
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        .container section dl dd {
+            margin-bottom: 30px;
+        }
+
+        .container section ol {
+            font-size: 20px;
+            margin-bottom: 50px;
+        }
+
+        .container section ol li {
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 779px) {
+            .content {
+                padding: 48px 24px;
+            }
+
+            .top-navigation-items-links {
+                width: 100%;
+            }
+
+        }
+
+        @media (min-width: 780px) {
+            .container {
+                grid-template-areas:
+                    'sidebar content';
+                grid-template-columns: minmax(250px, 25%) 1fr;
+            }
+
+            .sidebar {
+                display: block;
+            }
+
+            .content {
+                margin-right: 48px;
+            }
+
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                grid-template-areas:
+                    'sidebar content nav';
+                grid-template-columns: minmax(300px, 25%) 1fr 200px;
+            }
+
+            .nav {
+                display: block;
+                position: sticky;
+                top: 100px;
+            }
+
+            .sidebar {
+                margin-left: 5vw;
+            }
+
+            .top-navigation-items-buttons {
+                display: flex;
+                justify-content: space-evenly;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="item header">
+        <div class="header-top-container">
+            <div class="top-navigation-wrap">
+                <h1 class="logo">MDN web docs</h1>
+            </div>
+            <div class="top-navigation-items-links">
+                <div class="navigation-item"><a href="#">References</a></div>
+                <div class="navigation-item"><a href="#">Guides</a></div>
+                <div class="navigation-item"><a href="#">MDN Plus</a></div>
+            </div>
+            <div class="top-navigation-items-buttons">
+                <div class="subscribe-button1"><a href="#">Already a subscriber?</a></div>
+                <div class="subscribe-button2"><a href="#">Get MDN Plus</a></div>
+            </div>
+        </div>
+
+        <div class="header-bottom-container">Изучение веб-разработки</div>
+    </div>
+
+    <div class="container">
+
+        <div class="item sidebar">
+            <div class="aside">
+                <ul>
+                    <li class="aside-article aside-heading">
+                        <h3>Related Topics</h3>
+                    </li>
+                    <li class="aside-article">Новички начинуют здесь!
+                        <ul>
+                            <li class="toggle"><a href="#">Начало работы с Вебом</a></li>
+                        </ul>
+                    </li>
+                    <li class="aside-article">HTML - структура Веба
+                        <ul>
+                            <li class="toggle"><a href="#">Введение в HTML</a></li>
+                            <li class="toggle"><a href="#">Мультимедиа и встраивание</a></li>
+                            <li class="toggle"><a href="#">HTML таблицы</a></li>
+                        </ul>
+                    </li>
+                    <li class="aside-article">CSS - стилизирование Веба
+                        <ul>
+                            <li class="toggle"><a href="#">Введение в CSS</a></li>
+                            <li class="toggle"><a href="#">Устройство CSS</a></li>
+                            <li class="toggle"><a href="#">Стилизирование текста</a></li>
+                            <li class="toggle"><a href="#">CSS макет</a></li>
+                        </ul>
+                    </li>
+                    <li class="aside-article">JavaScript - динамический Клиентский скриптинг
+                        <ul>
+                            <li class="toggle"><a href="#">Первые шаги в JavaScript</a></li>
+                            <li class="toggle"><a href="#">Блоки в JavaScript</a></li>
+                            <li class="toggle"><a href="#">Введение объекты JavaScript</a></li>
+                            <li class="toggle"><a href="#">Асинхронный JavaScript</a></li>
+                            <li class="toggle"><a href="#">Клиентский веб API</a></li>
+                            <li class="toggle"><a href="#"></a></li>
+                        </ul>
+                    </li>
+                    <li class="aside-article">HTML-формы - работа с пользовательскими данными
+                        <ul>
+                            <li class="toggle">Руководство по HTML-формам<a href="#"></a></li>
+                            <li class="toggle">Advanced forms articles<a href="#"></a></li>
+                        </ul>
+                    </li>
+                    <li class="aside-article">Доступность - сделайте веб удобным для всех
+                        <ul>
+                            <li class="toggle"><a href="#">Руководства по обеспечению доступности</a></li>
+                            <li class="toggle"><a href="#">Задание: Доступность</a></li>
+                        </ul>
+                    </li>
+                    <li class="aside-article">Инструменты и тестирование
+                        <ul>
+                            <li class="toggle"><a href="#">Client-side web Development tools</a></li>
+                            <li class="toggle"><a href="#">Introduction to Client-side frameworks</a></li>
+                            <li class="toggle"><a href="#">React</a></li>
+                            <li class="toggle"><a href="#">Ember</a></li>
+                            <li class="toggle"><a href="#">Vue</a></li>
+                            <li class="toggle"><a href="#">Svelte</a></li>
+                            <li class="toggle"><a href="#">Angular</a></li>
+                            <li class="toggle"><a href="#">Git и GitHub</a></li>
+                            <li class="toggle"><a href="#">Кроссбраузерное тестирование</a></li>
+                        </ul>
+                    </li>
+                    <li class="aside-article">Программирование серверной части сайта
+                        <ul>
+                            <li class="toggle"><a href="#">Первые шаги</a></li>
+                            <li class="toggle"><a href="#">Веб-фрейворк Django (Python)</a></li>
+                            <li class="toggle"><a href="#">Веб-фреймворк Express (Node.js/Javascript)</a></li>
+                        </ul>
+                    </li>
+                    <li class="aside-article">Дальнейшее чтение
+                        <ul>
+                            <li class="toggle"><a href="#">Общие вопросы</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="item content">
+            <section>
+                <h1>Изучение веб-разработки</h1>
+                <p>Добро пожаловать в обучающий раздел MDN. Эта серия статей направлена на то, чтобы предоставить
+                    начинающим с нуля в веб-программировании всё необходимое для того, чтобы начать разрабатывать сайты.
+                </p>
+                <p>Задача этого раздела не перевести вас из «новичка» в «эксперта», а перевести вас из «новичка» в
+                    «уверенного». Это должно дать вам возможность начать строить свой путь, изучая остальные материалы
+                    MDN и другие средние и продвинутые материалы, предполагающие существенные начальные знания.</p>
+                <p>Если вы начинаете с нуля, веб-разработка может оказаться непростой — мы будем держать вас за руку и
+                    давать вам достаточно подробностей, чтобы вы чувствовали себя комфортно и как следует изучили темы.
+                    Вы можете чувствовать себя как дома, будь вы студентом, изучающим веб-разработку (самостоятельно или
+                    на занятиях), преподавателем, ищущим материал для занятий, любителем или тем, кто просто хочет лучше
+                    разобраться в том, как работают веб-технологии.</p>
+            </section>
+            <section>
+                <h2>Что нового</h2>
+                <p>Контент в обучающем разделе регулярно пополняется. Мы начали вести примечания к версии обучающего
+                    раздела, чтобы показать, что изменилось.</p>
+                <p>Если у вас есть предложения о добавлении тем, которые вы хотели бы увидеть или которых, как вы
+                    считаете, не хватает, напишите нам на нашем форуме Discourse.</p>
+            </section>
+
+            <section>
+                <div class="regular-box">
+                    <h3>Хотите стать фронтенд-разработчиком?</h3>
+                    <p>Мы составили курс, который включает всю важную информацию, необходимую для достижения вашей цели.
+                    </p>
+                    <a class="regular-box-link">Начать</a>
+                </div>
+            </section>
+
+            <section>
+                <h2>С чего начать</h2>
+                <ul>
+                    <li>Я новичок Если вы совсем новичок в веб-разработке, мы рекомендуем вам начать работу со статьи
+                        «Начало работы с вебом», которая представляет собой практическое вступление в веб-разработку.
+                    </li>
+                    <li>Уже что-то знаю Если у вас уже есть какой-то набор знаний, то следующим шагом будет изучение
+                        HTML и CSS во всех подробностях: начните с нашей статьи «Введение в HTML», а затем загляните в
+                        статью «Вступление в CSS».</li>
+                    <li>Погружаемся в программирование Если вы уже чувствуете себя комфортно с HTML и CSS или в основном
+                        интересуетесь кодингом, то вы захотите погрузиться в JavaScript или разработку на стороне
+                        сервера. Загляните в разделы «Первые шаги в JavaScript» и «Первые шаги в программировании
+                        веб-сайтов на стороне сервера».</li>
+                    <li>Фреймворки и инструменты Освоив основы ванильного HTML, CSS и JavaScript, стоит приступить к
+                        изучению инструментов веб-разработки на стороне клиента, а затем углубиться в
+                        JavaScript-фреймворки для фронтенда и программирование веб-сайтов на стороне сервера.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Изучаемые темы</h2>
+                <p>Ниже приводится список всех тем, которые мы рассматриваем в обучающем разделе MDN.</p>
+                <dl>
+                    <dt>Начало работы с вебом</dt>
+                    <dd>Практическое введение в веб-разработку для начинающих.</dd>
+                    <dt>Изучение HTML: руководства и уроки</dt>
+                    <dd>HTML — это язык, который мы используем для структурирования различных частей контента и
+                        определения их значения или цели. В этой теме подробно рассматривается HTML.</dd>
+                    <dt>CSS: стилизация веб-страниц</dt>
+                    <dd>CSS — это язык, который мы можем использовать для стилизации и разметки веб-контента, а также
+                        для описания такого поведения, как анимация. В этой теме подробно рассматривается CSS.</dd>
+                    <dt>JavaScript: разработка клиентских скриптов для динамических веб-страниц</dt>
+                    <dd>JavaScript — это язык сценариев, используемый для добавления динамической функциональности на
+                        веб-страницы. В этой теме рассказывается обо всём необходимом для того, чтобы научиться писать
+                        на JavaScript и понимать его</dd>
+                    <dt>Веб-формы: работа с пользовательскими данными</dt>
+                    <dd>Веб-формы — мощный инструмент для взаимодействия с пользователями. Чаще всего они используются
+                        для сбора данных от пользователей или для управления пользовательским интерфейсом. В статьях,
+                        перечисленных ниже, мы рассмотрим все важные аспекты структурирования, стилизации и
+                        взаимодействия с веб-формами.</dd>
+                    <dt>Доступность: сделаем интернет доступным для всех</dt>
+                    <dd>Доступность — это практика предоставления доступа к веб-контенту как можно большему количеству
+                        людей, независимо от ограниченных возможностей здоровья, используемого устройства, региона или
+                        других отличительных факторов. В этой теме вы найдёте все, что вам нужно знать.</dd>
+                    <dt>Производительность веб-приложений: делаем сайты быстрыми и отзывчивыми</dt>
+                    <dd>Веб-производительность — это искусство обеспечения быстрой загрузки веб-приложений и их
+                        реагирования на действия пользователя, независимо от скорости соединения пользователя, размера
+                        экрана, сети или возможностей устройства.</dd>
+                    <dt>Инструменты и тестирование</dt>
+                    <dd>В этой теме рассматриваются инструменты, которые разработчики используют для оптимизации своей
+                        работы, например: инструменты для кросс-браузерного тестирования, линтеры, средства
+                        форматирования, инструменты преобразования, системы контроля версий, инструменты развёртывания и
+                        клиентские JavaScript-фреймворки.</dd>
+                    <dt>Серверное программирование веб-сайтов</dt>
+                    <dd>Даже если вы преимущественно интересуетесь фронтенд-разработкой, всё равно полезно знать, как
+                        работают серверы и функции, написанные на серверном коде. В этой теме представлены общие
+                        сведения о том, как работает серверная часть, и подробные руководства по созданию серверного
+                        приложения с использованием двух популярных фреймворков: Django (Python) и Express (Node.js).
+                    </dd>
+                </dl>
+            </section>
+            <section>
+                <h2>Получение наших примеров кода</h2>
+                <p>Представленные в обучающем разделе примеры кода доступны на GitHub. Если вы хотите скопировать их все
+                    на свой компьютер, самый простой способ — загрузить ZIP-архив с последней веткой основного кода.</p>
+                <p>Если вы предпочитаете копировать репозиторий более гибким способом, позволяющим автоматические
+                    обновления, вы можете использовать следующую, более сложную инструкцию:</p>
+                <ol>
+                    <li>Установите Git на свой компьютер. Это основное программное обеспечение системы контроля версий,
+                        разрабатываемое компанией GitHub.</li>
+                    <li>Откройте командную строку (Windows) или терминал (Linux, macOS).</li>
+                    <li>Чтобы скопировать репозиторий обучающего раздела в папку с именем learning-area в текущем
+                        местоположении, на которое указывает ваша командная строка / терминал, используйте следующую
+                        команду:</li>
+                    <li>Теперь вы можете войти в директорию и найти нужные вам файлы (с помощью Finder/проводника либо
+                        команды cd).</li>
+                </ol>
+                <p>Вы можете обновить репозиторий learning-area и добавить любые изменения, внесённые в основную версию
+                    на GitHub, выполнив следующие действия:</p>
+                <ol>
+                    <li>В командной строке / терминале войдите в директорию learning-area командой cd. Например, если вы
+                        в родительском каталоге:</li>
+                    <li>Обновите репозиторий, выполнив следующую команду:</li>
+                </ol>
+            </section>
+            <section>
+                <h2>Связаться с нами</h2>
+                <p>Если вы хотите оставаться с нами на связи, то лучший способ — отправить сообщение в наши списки
+                    рассылки или IRC-каналы. Мы хотели бы услышать от вас о том, что на нашем сайте что-то отсутствует
+                    или неправильно, запросы новых тем по обучению, просьбы помощи с аспектами, которые вы не понимаете,
+                    или что-то ещё.</p>
+                <p>Если вам интересно создание или улучшение контента, посмотрите, как вы можете помочь, и оставайтесь
+                    на связи! Мы будем очень рады поговорить с вами, будь вы обучающийся, преподаватель, опытный
+                    веб-разработчик или кто-либо другой, заинтересованный в улучшении обучения.</p>
+            </section>
+            <section>
+                <h2>Смотрите также</h2>
+                <dl>
+                    <dt>Codecademy</dt>
+                    <dd>Крутой интерактивный сайт для изучения языков программирования с нуля.</dd>
+                    <dt>Code.org</dt>
+                    <dd>Базовая теория кода и практика, нацеленная в основном на детей или совсем новичков.</dd>
+                    <dt>EXLskills</dt>
+                    <dd>Бесплатный и открытые курсы для обучения техническим навыкам, с наставничеством и обучением на
+                        основе проектов</dd>
+                    <dt>Карта веб-грамотности</dt>
+                    <dd>Структура веб-грамотности начального уровня и навыков 21 века, которая предоставляет доступ к
+                        преподавательской деятельности, отсортированной по категориям.</dd>
+                    <dt>Преподавательская деятельность</dt>
+                    <dd>Серия материалов для обучения (и изучения), созданная Mozilla Foundation, покрывающая всё от
+                        базовой веб-грамотности и приватности JavaScript до взлома Minecraft.</dd>
+                    <dt>Edadit</dt>
+                    <dd>Тысячи интерактивных задач JavaScript.</dd>
+                </dl>
+            </section>
+            <section>
+                <div class="regular-box">
+                    <h3>Found a problem with this page?</h3>
+                    <ul>
+                        <li>Edit on GitHub</li>
+                        <li>Source on GitHub</li>
+                        <li>Report a problem with this content on GitHub</li>
+                        <li>Want to fix the problem yourself? See our Contribution guide.</li>
+                    </ul>
+                    <p><strong>Last modified</strong> 5 авг. 2022 г., by MDN contributors</p>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="item nav">
+            <div class="nav-header">
+                <h3>In this article</h3>
+            </div>
+            <ul>
+                <li class="document-link"><a href="#">Что нового</a></li>
+                <li class="document-link"><a href="#">С чего начать</a></li>
+                <li class="document-link"><a href="#">Изучаемые темы</a></li>
+                <li class="document-link"><a href="#">Получение ваших примеров кода</a></li>
+                <li class="document-link"><a href="#">Связаться с нами</a></li>
+                <li class="document-link"><a href="#">Смотрите также</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="item footer">Your blueprint for a better internet.
+
+        MDN on Twitter
+        MDN on GitHub
+        MDN
+        About
+        Hacks Blog
+        Careers
+        Support
+        Product help
+        Report a page issue
+        Report a site issue
+        Our communities
+        MDN Community
+        MDN Forum
+        MDN Chat
+        Developers
+        Web Technologies
+        Learn Web Development
+        MDN Plus
+        Website Privacy Notice
+        Cookies
+        Legal
+        Community Participation Guidelines
+        Visit Mozilla Corporation's not-for-profit parent, the Mozilla Foundation.
+        Portions of this content are ©1998–2022 by individual mozilla.org contributors. Content available under a
+        Creative Commons license.
+    </div>
+</body>
+
+</html>
